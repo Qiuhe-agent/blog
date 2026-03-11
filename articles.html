@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公众号文章 - 丘壑 SuperAgent</title>
+    <link rel="icon" type="image/jpeg" href="logo.JPG">
+    <link rel="apple-touch-icon" href="logo.JPG">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0a0a0a',
+                        light: '#fafafa',
+                        surface: { light: '#f4f4f5', dark: '#18181b' },
+                        border: { light: '#e4e4e7', dark: '#27272a' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            background: #fafafa;
+            color: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .dark body {
+            background: #0a0a0a;
+            color: #fafafa;
+        }
+
+        #cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        #cursor.hover {
+            width: 50px;
+            height: 50px;
+        }
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #fafafa;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dark #loader {
+            background: #0a0a0a;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e4e4e7;
+            border-radius: 2px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #27272a;
+        }
+
+        ::selection {
+            background: #0a0a0a;
+            color: #fafafa;
+        }
+
+        .dark ::selection {
+            background: #fafafa;
+            color: #0a0a0a;
+        }
+
+        .card-hover {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+        }
+
+        .masonry {
+            column-count: 1;
+            column-gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .masonry {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .masonry {
+                column-count: 3;
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+    </style>
+
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+
+<body class="antialiased overflow-x-hidden">
+
+    <div id="loader">
+        <div class="text-center">
+            <div class="text-3xl font-black text-gradient mb-4">QH</div>
+            <div class="w-32 h-0.5 bg-gray-200 dark:bg-gray-800 overflow-hidden rounded">
+                <div id="progress" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 w-0 transition-all duration-300"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cursor" class="hidden md:block"></div>
+
+    <nav class="fixed top-0 w-full z-50 px-6 py-5">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="hover-target font-black text-xl">QH<span class="text-indigo-500">.</span></a>
+
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex gap-8 text-sm font-medium">
+                    <a href="index.html#about" class="hover-target text-gray-500 hover:text-black dark:hover:text-white transition-colors">关于</a>
+                    <a href="index.html#projects" class="hover-target text-gray-500 hover:text-black dark:hover:text-white transition-colors">作品</a>
+                    <a href="index.html#blog" class="hover-target text-gray-500 hover:text-black dark:hover:text-white transition-colors">博客</a>
+                </div>
+                <button id="theme-toggle" class="hover-target w-10 h-10 rounded-full bg-surface-light dark:bg-surface-dark flex items-center justify-center transition-transform hover:scale-105">
+                    <span class="hidden dark:block"><i data-lucide="sun" class="w-4 h-4"></i></span>
+                    <span class="block dark:hidden"><i data-lucide="moon" class="w-4 h-4"></i></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 pt-32 pb-24">
+
+        <div class="mb-12">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-500">公众号文章</h2>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black mb-4">
+                <span class="text-gradient">全部文章</span>
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400 text-lg">分享AI技术、产品思维与实践经验</p>
+        </div>
+
+        <div id="articles-container" class="masonry">
+        </div>
+
+    </main>
+
+    <footer class="border-t border-border-light dark:border-border-dark py-10">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <span class="font-black">QH<span class="text-indigo-500">.</span></span>
+            <p class="text-sm text-gray-500">© 2026 丘壑. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover-target text-gray-400 hover:text-black dark:hover:text-white"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="#" class="hover-target text-gray-400 hover:text-black dark:hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const cursor = document.getElementById('cursor');
+        const hoverTargets = document.querySelectorAll('.hover-target');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        const loader = document.getElementById('loader');
+        const progress = document.getElementById('progress');
+        let loadProgress = 0;
+
+        const loadInterval = setInterval(() => {
+            loadProgress += Math.random() * 30;
+            if (loadProgress >= 100) {
+                loadProgress = 100;
+                clearInterval(loadInterval);
+                setTimeout(() => {
+                    gsap.to(loader, {
+                        opacity: 0,
+                        duration: 0.5,
+                        onComplete: () => loader.style.display = 'none'
+                    });
+                    animateCards();
+                }, 200);
+            }
+            progress.style.width = loadProgress + '%';
+        }, 100);
+
+        function animateCards() {
+            gsap.from('.masonry-item', {
+                y: 50,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        }
+
+        fetch('公众号文章.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('articles-container');
+                
+                data.articles.forEach((article, index) => {
+                    const card = document.createElement('a');
+                    card.href = article.link;
+                    card.target = '_blank';
+                    card.className = 'masonry-item hover-target card-hover group block p-6 rounded-2xl bg-surface-light dark:bg-surface-dark border border-transparent hover:border-border-light dark:hover:border-border-dark transition-colors';
+                    
+                    card.innerHTML = `
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-xs font-medium">公众号</span>
+                                <span class="text-xs text-gray-500">${article.date}</span>
+                            </div>
+                            <h3 class="text-lg font-bold group-hover:text-indigo-500 transition-colors leading-tight">${article.title}</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-3">${article.introduction}</p>
+                            <div class="flex items-center gap-1 text-xs text-gray-400 mt-2">
+                                <i data-lucide="external-link" class="w-3 h-3"></i>
+                                <span>阅读原文</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                });
+                
+                lucide.createIcons();
+            })
+            .catch(error => console.error('加载文章数据失败:', error));
+    </script>
+</body>
+
+</html>

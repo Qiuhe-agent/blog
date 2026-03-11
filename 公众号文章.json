@@ -1,0 +1,52 @@
+{
+  "articles": [
+    {
+      "title": "一文读懂 Agent、MCP、Skill：2026 年 AI 自动化核心能力组合",
+      "link": "https://mp.weixin.qq.com/s/wo_ORzwr89_Ru0SVZGpB8Q?token=465215682&lang=zh_CN",
+      "date": "2026.02.08",
+      "introduction": "本文从技术背景、核心痛点出发，深入解析 Agent、MCP、Skill 三个概念的角色定位与协同逻辑，通过典型应用场景和 Token 成本分析，帮助读者理解这套 AI 自动化系统的设计思路。"
+    },
+    {
+      "title": "Claude Code 全实操指南",
+      "link": "https://mp.weixin.qq.com/s/xKKOqRwH4TX3IiXmsO5cPA?token=465215682&lang=zh_CN",
+      "date": "2026.02.10",
+      "introduction": "一篇不讲玄学、只讲实操的 Claude Code 全指南，涵盖核心介绍、使用场景、快速安装、模型配置、MCP 接入、Agent/Skill 创建等完整流程，附常用快捷指令和常见问题排查。"
+    },
+    {
+      "title": "AI技术的发展对生产力和生产关系的影响：马克思主义视角下的历史梳理与未来社会形态分析",
+      "link": "https://mp.weixin.qq.com/s/DUuW_8DgrRgC5ilDzCkC-Q?token=465215682&lang=zh_CN",
+      "date": "2026.02.12",
+      "introduction": "从马克思主义政治经济学视角，系统梳理四次工业革命的生产力跃升与生产关系变革，深入分析 AI 作为新质生产力的技术特征、劳动过程变革及生产关系矛盾运动，探讨未来社会形态的演进方向。"
+    },
+    {
+      "title": "一键接入超强大模型！Claude Code 接入 DeepSeek/GLM/火山 Coding Plan 全攻略",
+      "link": "https://mp.weixin.qq.com/s/X3AqWCBy5BJMeQr8QCGPyw?token=465215682&lang=zh_CN",
+      "date": "2026.02.14",
+      "introduction": "手把手教你将 Claude Code 接入 DeepSeek、GLM、火山引擎 Coding Plan 三大主流外部大模型，通过环境变量配置实现无缝集成，附常用命令详解和关键配置说明。"
+    },
+    {
+      "title": "云部署 OpenClaw 完整方案",
+      "link": "https://mp.weixin.qq.com/s/NeNgrtSA8bhLPgYXGhHlDQ?token=465215682&lang=zh_CN",
+      "date": "2026.03.06",
+      "introduction": "提供在火山引擎 ECS（Ubuntu 24.04）上部署 OpenClaw AI 的完整方案，涵盖环境准备、Node.js 安装、OpenClaw 配置到安全组设置、防火墙配置、后台自启动的全流程指南。"
+    },
+    {
+      "title": "流量与 token：从发展历史到未来趋势，全维度对比分析",
+      "link": "https://mp.weixin.qq.com/s/fD_WEOH3vQwU2Hc_j6hRBA?token=465215682&lang=zh_CN",
+      "date": "2026.03.09",
+      "introduction": "从前世今生、核心异同、未来趋势三个维度，彻底讲明白流量和 token 这两个数字世界核心计价单位的本质差异与底层共性，分析它们的发展路径和融合方向。"
+    },
+    {
+      "title": "全网刷屏的OpenClaw，凭什么成为2026开年第一AI爆品？",
+      "link": "https://mp.weixin.qq.com/s/KZoQJZiCAWuA_nfN_N6DGQ?token=465215682&lang=zh_CN",
+      "date": "2026.03.10",
+      "introduction": "深度拆解 OpenClaw 从个人项目到全球现象的狂飙之路，分析其爆火的六大核心原因：终结 AI\"只说不做\"顽疾、满足隐私与自主权需求、低门槛与高上限平衡、社区生态飞轮效应、踩中时代风口、网感传播加持。"
+    },
+    {
+      "title": "AI 能替代劳动，但只有人，能创造价值",
+      "link": "https://mp.weixin.qq.com/s/5bLZ1kHZB_QCRxkY9wEmvQ",
+      "date": "2026.03.11",
+      "introduction": "本文将以马克思对商品价值的核心定义为根基，结合劳动二重性、不变资本与可变资本、异化劳动、人的本质与人的全面发展等马克思主义核心理论，系统拆解AI时代\"人\"的不可替代的价值本质，回应\"AI是否会消解人的价值\"的时代焦虑。"
+    }
+  ]
+}
