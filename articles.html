@@ -261,7 +261,14 @@
             .then(data => {
                 const container = document.getElementById('articles-container');
                 
-                data.articles.forEach((article, index) => {
+                // 将文章按日期从近到远排序
+                const sortedArticles = data.articles.sort((a, b) => {
+                    const dateA = new Date(a.date.replace(/\./g, '-'));
+                    const dateB = new Date(b.date.replace(/\./g, '-'));
+                    return dateB - dateA;
+                });
+                
+                sortedArticles.forEach((article, index) => {
                     const card = document.createElement('a');
                     card.href = article.link;
                     card.target = '_blank';
